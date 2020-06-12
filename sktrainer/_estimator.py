@@ -3,6 +3,8 @@ from sklearn.tree import *
 from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
 from sklearn.svm import SVC, SVR
+from sklearn.neural_network import MLPClassifier, MLPRegressor
+
 
 classifier = {
     'dt': DecisionTreeClassifier,
@@ -14,7 +16,8 @@ classifier = {
     'logreg': LogisticRegression,
     'lda': LinearDiscriminantAnalysis,
     'qda': QuadraticDiscriminantAnalysis,
-    'svm': SVC
+    'svm': SVC,
+    'mlp': MLPClassifier
 }
 
 regressor = {
@@ -26,5 +29,6 @@ regressor = {
     'gb': GradientBoostingRegressor,
     'linreg': LinearRegression,
     'ridge': Ridge,
-    'svm': SVR
+    'svm': SVR,
+    'mlp': MLPRegressor
 }
