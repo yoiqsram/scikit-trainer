@@ -127,13 +127,13 @@ class _Model(BaseEstimator, metaclass=ABCMeta):
             if search == 'grid':
                 estimator_ = GridSearchCV(estimators[i], _prefixed_params,
                                           scoring=self.scoring,
-                                          refit=self.scoring[0],
+                                          refit=self.refit,
                                           cv=self.cv,
                                           n_jobs=self.n_jobs).fit(X, y)
             else:
                 estimator_ = RandomizedSearchCV(estimators[i], _prefixed_params,
                                                 scoring=self.scoring,
-                                                refit=self.scoring[0],
+                                                refit=self.refit,
                                                 cv=self.cv,
                                                 n_jobs=self.n_jobs,
                                                 n_iter=n_iter,
@@ -189,25 +189,6 @@ class _Model(BaseEstimator, metaclass=ABCMeta):
                     print('+/- {:.4f}'.format(value[self.best_index_]))
 
         return self
-
-    def get_estimator(self, key: int or str = 'best'):
-        assert key in range(len(self.estimators_)) or key == 'best'
-
-        if key == 'best':
-            return self.best_estimator_
-        elif isinstance(key, int):
-            return self.estimators_[key]
-
-        raise KeyError
-
-    def predict(self, X, key: int or str = 'best'):
-        return self.get_estimator(key).predict(X)
-
-    def predict_proba(self, X, key: int or str = 'best'):
-        return self.get_estimator(key).predict_proba(X)
-
-    def predict_log_proba(self, X, key: int or str = 'best'):
-        return self.get_estimator(key).predict_log_proba(X)
 
 
 class ModelClassifier(ClassifierMixin, _Model):
