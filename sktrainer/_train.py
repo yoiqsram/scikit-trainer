@@ -9,7 +9,7 @@ from sklearn.calibration import CalibratedClassifierCV
 
 from sktrainer._estimator import classifier, regressor
 
-__all__ = ['ModelTrainer', 'train']
+__all__ = ['ModelTrainer']
 
 
 _estimator = {'reg': regressor, 'classif': classifier}
@@ -35,7 +35,7 @@ def _get_estimator(estimator, task):
 def _transform_config(config: Union[str, dict, list, tuple, Generator, Callable], task):
     if config == 'all':
         estimators = _estimator[task].values()
-        return [{'name': estimator.__class__.__name__, 'estimator': estimator()} for estimator in estimators]
+        return [{'name': estimator.__name__, 'estimator': estimator()} for estimator in estimators]
 
     elif isinstance(config, dict):
         config['estimator'] = _get_estimator(config['estimator'], task)
@@ -193,13 +193,3 @@ class ModelTrainer(BaseEstimator):
 
     def predict_log_proba(self, X, key: int or str = 'best'):
         return self.get_estimator(key).predict_log_proba(X)
-
-
-def train(task='reg', config='all', scoring=None, cv=5, n_jobs=None, verbose=1, random_state=None):
-    return ModelTrainer(task=task,
-                        config=config,
-                        scoring=scoring,
-                        cv=cv,
-                        n_jobs=n_jobs,
-                        verbose=verbose,
-                        random_state=random_state)
