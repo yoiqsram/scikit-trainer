@@ -127,13 +127,13 @@ class _Model(BaseEstimator, metaclass=ABCMeta):
             if search == 'grid':
                 estimator_ = GridSearchCV(estimators[i], _prefixed_params,
                                           scoring=self.scoring,
-                                          refit=self.refit,
+                                          refit=best_scorer,
                                           cv=self.cv,
                                           n_jobs=self.n_jobs).fit(X, y)
             else:
                 estimator_ = RandomizedSearchCV(estimators[i], _prefixed_params,
                                                 scoring=self.scoring,
-                                                refit=self.refit,
+                                                refit=best_scorer,
                                                 cv=self.cv,
                                                 n_jobs=self.n_jobs,
                                                 n_iter=n_iter,

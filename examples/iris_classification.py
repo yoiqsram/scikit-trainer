@@ -16,5 +16,5 @@ if __name__ == '__main__':
          })
     ]
 
-    model = train(config, scoring='accuracy', n_jobs=-1).fit(X, y)
+    model = train(config, n_jobs=-1).fit(X, y)
     print(model.summary)
