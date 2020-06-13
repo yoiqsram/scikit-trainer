@@ -139,7 +139,7 @@ class _Model(BaseEstimator, metaclass=ABCMeta):
                                                 n_iter=n_iter,
                                                 random_state=self.random_state).fit(X, y)
 
-            self.estimators_.append(estimator_)
+            self.estimators_.append(estimator_.best_estimator_)
 
             for name, v in estimator_.cv_results_.items():
                 v = v[estimator_.best_index_]
